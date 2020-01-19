@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Switch, Route, Link } from 'wouter';
+import ReduxToastr from 'react-redux-toastr';
 import './App.css';
+import HomePage from './pages/home-page';
+import { GlobalStyle } from './themes/global';
+import { ThemeProvider } from 'styled-components';
+import { myTheme } from './themes/default-theme';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import DrinksPage from './pages/drinks-page';
+import IngredientsPage from './pages/ingredients-page';
+import Layout from './components/layout';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ThemeProvider theme={myTheme}>
+        <GlobalStyle />
+        <ReduxToastr
+          timeOut={4000}
+          newestOnTop={false}
+          preventDuplicates
+          position='top-left'
+          // getState={(state: any) => state.toastr} // This is the default
+          transitionIn='fadeIn'
+          transitionOut='fadeOut'
+          progressBar
+          closeOnToastrClick
+        />
+        <Layout />
+      </ThemeProvider>
+    </Provider>
   );
-}
+};
 
 export default App;
