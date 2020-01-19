@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import AddDrink from '../components/add-drink';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDrinksIfNeeded } from '../redux/actions';
-import Drinks from '../components/drinks';
-import { Link, Switch, Route } from 'wouter';
+import { Link } from 'wouter';
 import {
   getSelectedDrink,
   getDrinksLoading,

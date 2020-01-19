@@ -13,6 +13,7 @@ type AddDrinkPayload = {
       ingredientId: string;
     }[];
   };
+  callback?: (id: string) => any;
 };
 
 type UpdateDrinkPayload = {
@@ -77,6 +78,10 @@ export const addDrink = (payload: AddDrinkPayload) => {
             },
           },
         });
+
+        if (payload.callback) {
+          payload.callback(docRef.id);
+        }
       })
       .catch(function(error) {
         dispatch({

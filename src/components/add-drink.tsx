@@ -16,6 +16,7 @@ import { addDrink } from '../redux/actions';
 import { Remove } from '@material-ui/icons';
 import AddInstruction from './add-instruction';
 import Instruction from './instruction';
+import { useLocation } from 'wouter';
 
 type Props = {};
 const AddDrink: React.FC<Props> = () => {
@@ -26,6 +27,7 @@ const AddDrink: React.FC<Props> = () => {
   const [ingredients, setIngredients] = useState<any>([]);
   const [instructions, setInstructions] = useState<string[]>([]);
   const dispatch = useDispatch();
+  const [location, setLocation] = useLocation();
 
   const allIngredients = useSelector(state => getIngredientItems(state));
 
@@ -44,7 +46,14 @@ const AddDrink: React.FC<Props> = () => {
       }),
     };
 
-    dispatch(addDrink({ data }));
+    dispatch(
+      addDrink({
+        data,
+        callback: (id: string) => {
+          setLocation(`/drinks/${id}`);
+        },
+      })
+    );
   };
 
   const handleDeleteInstruction = (index: number) => {
