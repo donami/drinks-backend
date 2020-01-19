@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDrinksIfNeeded } from '../redux/actions';
 import {
-  getSelectedDrink,
-  getDrinksLoading,
   getIngredientsLoading,
   getSelectedIngredient,
 } from '../redux/selectors';
 import Loader from '../components/loader';
 import { Typography, Button } from '@material-ui/core';
 import EditIngredient from '../components/edit-ingredient';
+import styled from 'styled-components';
 
 type Props = {
   params: any;
@@ -31,10 +30,6 @@ const IngredientPage: React.FC<Props> = ({ params }) => {
   const ingredient = useSelector(state => getSelectedIngredient(state));
   const loading = useSelector(state => getIngredientsLoading(state));
 
-  const handleSave = () => {
-    setEditing(false);
-  };
-
   if (loading) {
     return <Loader />;
   }
@@ -45,7 +40,7 @@ const IngredientPage: React.FC<Props> = ({ params }) => {
 
   return (
     <div>
-      <Typography variant='h5'>{ingredient.title}</Typography>
+      <Typography variant="h5">{ingredient.title}</Typography>
 
       {editing && (
         <React.Fragment>
@@ -55,7 +50,10 @@ const IngredientPage: React.FC<Props> = ({ params }) => {
 
       {!editing && (
         <React.Fragment>
-          <Button onClick={() => setEditing(true)}>Edit</Button>
+          <div>
+            <Button onClick={() => setEditing(true)}>Edit</Button>
+          </div>
+          {ingredient.image && <Image src={ingredient.image} alt="" />}
         </React.Fragment>
       )}
     </div>
@@ -63,3 +61,7 @@ const IngredientPage: React.FC<Props> = ({ params }) => {
 };
 
 export default IngredientPage;
+
+const Image = styled.img`
+  max-width: 120px;
+`;

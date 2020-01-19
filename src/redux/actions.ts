@@ -323,6 +323,7 @@ export const fetchDrinksIfNeeded = () => {
                 amount: ingredient.amount,
               };
             }),
+            source: data.source,
             description: data.description,
           };
         });

@@ -13,7 +13,7 @@ import AddIngredientToDrink from './add-ingredient-to-drink';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredientItems } from '../redux/selectors';
 import { addDrink } from '../redux/actions';
-import { Remove, Edit } from '@material-ui/icons';
+import { Remove } from '@material-ui/icons';
 import AddInstruction from './add-instruction';
 import Instruction from './instruction';
 
@@ -68,11 +68,11 @@ const AddDrink: React.FC<Props> = () => {
 
   return (
     <Wrapper>
-      <Typography variant='h5'>Add new drink</Typography>
-      <FormControl fullWidth margin='normal' variant='outlined'>
-        <InputLabel htmlFor='input-title'>Title</InputLabel>
+      <Typography variant="h5">Add new drink</Typography>
+      <FormControl fullWidth margin="normal" variant="outlined">
+        <InputLabel htmlFor="input-title">Title</InputLabel>
         <OutlinedInput
-          id='input-title'
+          id="input-title"
           value={title}
           onChange={event => {
             setTitle(event.target.value);
@@ -80,10 +80,10 @@ const AddDrink: React.FC<Props> = () => {
           labelWidth={35}
         />
       </FormControl>
-      <FormControl fullWidth margin='normal' variant='outlined'>
-        <InputLabel htmlFor='input-image'>Image</InputLabel>
+      <FormControl fullWidth margin="normal" variant="outlined">
+        <InputLabel htmlFor="input-image">Image</InputLabel>
         <OutlinedInput
-          id='input-image'
+          id="input-image"
           value={image}
           onChange={event => {
             setImage(event.target.value);
@@ -91,10 +91,10 @@ const AddDrink: React.FC<Props> = () => {
           labelWidth={35}
         />
       </FormControl>
-      <FormControl fullWidth margin='normal' variant='outlined'>
-        <InputLabel htmlFor='input-description'>Description</InputLabel>
+      <FormControl fullWidth margin="normal" variant="outlined">
+        <InputLabel htmlFor="input-description">Description</InputLabel>
         <OutlinedInput
-          id='input-description'
+          id="input-description"
           value={description}
           multiline
           onChange={event => {
@@ -103,10 +103,10 @@ const AddDrink: React.FC<Props> = () => {
           labelWidth={85}
         />
       </FormControl>
-      <FormControl fullWidth margin='normal' variant='outlined'>
-        <InputLabel htmlFor='input-description'>Source</InputLabel>
+      <FormControl fullWidth margin="normal" variant="outlined">
+        <InputLabel htmlFor="input-description">Source</InputLabel>
         <OutlinedInput
-          id='input-description'
+          id="input-description"
           value={source}
           multiline
           onChange={event => {
@@ -117,7 +117,7 @@ const AddDrink: React.FC<Props> = () => {
       </FormControl>
       <FormField>
         <div style={{ display: 'flex' }}>
-          <Typography variant='h5' gutterBottom>
+          <Typography variant="h5" gutterBottom>
             Instructions
           </Typography>
           <AddInstruction
@@ -146,7 +146,7 @@ const AddDrink: React.FC<Props> = () => {
         })}
       </FormField>
       <FormField>
-        <Typography variant='h5' gutterBottom>
+        <Typography variant="h5" gutterBottom>
           Ingredients
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -175,7 +175,7 @@ const AddDrink: React.FC<Props> = () => {
                   >
                     {item.ingredient.title}
                     <IconButton
-                      aria-label='delete'
+                      aria-label="delete"
                       onClick={() => {
                         setIngredients([
                           ...ingredients.slice(0, ingredients.indexOf(item)),
@@ -183,7 +183,7 @@ const AddDrink: React.FC<Props> = () => {
                         ]);
                       }}
                     >
-                      <Remove color='error' />
+                      <Remove color="error" />
                     </IconButton>
                   </div>
                 );
@@ -198,10 +198,10 @@ const AddDrink: React.FC<Props> = () => {
           />
         </div>
       </FormField>
-      <Button variant='contained' color='primary' onClick={handleSubmit}>
+      <Button variant="contained" color="primary" onClick={handleSubmit}>
         Add
       </Button>
-      <Button variant='contained'>Cancel</Button>
+      <Button variant="contained">Cancel</Button>
     </Wrapper>
   );
 };
