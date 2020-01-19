@@ -44,6 +44,7 @@ type AddIngredientPayload = {
     description: string;
     image: string;
   };
+  callback?: (addedItem: any) => any;
 };
 
 export const addDrink = (payload: AddDrinkPayload) => {
@@ -250,9 +251,19 @@ export const addIngredient = (payload: AddIngredientPayload) => {
         dispatch({
           type: 'ADD_INGREDIENT_SUCCESS',
           payload: {
-            data: payload.data,
+            data: {
+              id: docRef.id,
+              ...payload.data,
+            },
           },
         });
+
+        if (payload.callback) {
+          payload.callback({
+            id: docRef.id,
+            ...payload.data,
+          });
+        }
       })
       .catch(function(error) {
         dispatch({

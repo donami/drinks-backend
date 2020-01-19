@@ -18,14 +18,14 @@ const DrinksPage: React.FC<Props> = () => {
     <div>
       <h1>Drinks</h1>
       <SubNavigation>
-        <Link href='/drinks'>All drinks</Link>
-        <Link href='/drinks/add'>Add drink</Link>
+        <Link href="/drinks">All drinks</Link>
+        <Link href="/drinks/add">Add drink</Link>
       </SubNavigation>
       <div style={{ marginTop: 40 }}>
         <Switch>
-          <Route path='/drinks' component={Drinks} />
-          <Route path='/drinks/add' component={AddDrink} />
-          <Route path='/drinks/:id' component={DrinkPage} />
+          <Route path="/drinks" component={Drinks} />
+          <Route path="/drinks/add" component={AddDrink} />
+          <Route path="/drinks/:id" component={DrinkPage} />
         </Switch>
       </div>
     </div>

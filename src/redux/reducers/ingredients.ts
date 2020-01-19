@@ -30,6 +30,16 @@ const ingredientReducer = (state = initialState, action: any) => {
     case 'ADD_INGREDIENT_SUCCESS': {
       return {
         ...state,
+        items: [
+          ...state.items,
+          {
+            ...action.payload.data,
+          },
+        ],
+        entities: {
+          ...state.entities,
+          [action.payload.data.id]: action.payload.data,
+        },
         loaded: true,
         loading: false,
       };

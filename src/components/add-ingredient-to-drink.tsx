@@ -15,10 +15,11 @@ import {
   Avatar,
   ListItemText,
   ListItemSecondaryAction,
-  Checkbox,
 } from '@material-ui/core';
 import { Add, Remove } from '@material-ui/icons';
 import { Ingredient } from '../models/interface';
+import AddIngredientForm from './add-ingredient-form';
+import styled from 'styled-components';
 
 type Props = {
   ingredients: Ingredient[];
@@ -31,6 +32,7 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
   const [amount, setAmount] = React.useState<string>('');
   const [filter, setFilter] = React.useState<string>('');
   const [selected, setSelected] = React.useState<Ingredient | null>(null);
+  const [quickAdd, setQuickAdd] = React.useState(false);
 
   useEffect(() => {
     const re = new RegExp(filter.toLowerCase(), 'g');
@@ -56,17 +58,21 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
     setFilter(phrase);
   };
 
+  const toggleQuickAdd = () => {
+    setQuickAdd(!quickAdd);
+  };
+
   return (
     <div>
-      <Fab color='primary' aria-label='add' onClick={handleClickOpen}>
+      <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
         <Add />
       </Fab>
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby='form-dialog-title'
+        aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id='form-dialog-title'>Add ingredient</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add ingredient</DialogTitle>
         <DialogContent>
           <DialogContentText>Search ingredient</DialogContentText>
           {!selected && (
@@ -76,10 +82,10 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
                   handleFilter(e.target.value);
                 }}
                 autoFocus
-                margin='dense'
-                id='filter'
-                label='Filter by name'
-                type='text'
+                margin="dense"
+                id="filter"
+                label="Filter by name"
+                type="text"
                 fullWidth
               />
               <div style={{ width: 400 }}>
@@ -112,9 +118,24 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
                   </List>
                 )}
                 {!!filter.length && !filtered.length && (
-                  <p>
-                    <em>Found ingredients matching "{filter}".</em>
-                  </p>
+                  <>
+                    <p>
+                      <em>Found ingredients matching "{filter}".</em>
+                    </p>
+
+                    <QuickAdd>
+                      <Button onClick={toggleQuickAdd}>
+                        Quick add ingredient
+                      </Button>
+                      {quickAdd && (
+                        <AddIngredientForm
+                          callback={(addedItem: any) => {
+                            setSelected(addedItem);
+                          }}
+                        />
+                      )}
+                    </QuickAdd>
+                  </>
                 )}
               </div>
             </React.Fragment>
@@ -129,7 +150,7 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
                   alignItems: 'center',
                 }}
               >
-                <Typography variant='h5'>{selected.title}</Typography>
+                <Typography variant="h5">{selected.title}</Typography>
                 <Button
                   onClick={() => {
                     setSelected(null);
@@ -138,24 +159,24 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
                     setFiltered([]);
                   }}
                 >
-                  <Remove color='error' />
+                  <Remove color="error" />
                 </Button>
               </div>
               <TextField
                 onChange={e => {
                   setAmount(e.target.value);
                 }}
-                margin='dense'
-                id='amount'
-                label='Amount'
-                type='text'
+                margin="dense"
+                id="amount"
+                label="Amount"
+                type="text"
                 fullWidth
               />
             </React.Fragment>
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color='primary'>
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button
@@ -167,7 +188,7 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
               handleClose();
             }}
             disabled={!selected || !amount.length}
-            color='primary'
+            color="primary"
           >
             Add
           </Button>
@@ -178,3 +199,8 @@ const AddIngredientToDrink: React.FC<Props> = ({ ingredients, onSubmit }) => {
 };
 
 export default AddIngredientToDrink;
+
+const QuickAdd = styled.div`
+  border: ${p => p.theme.colors.gray} 1px solid;
+  padding: ${p => p.theme.spacing.small};
+`;
